@@ -270,6 +270,8 @@ GameObject:
   - component: {fileID: 1547651920}
   - component: {fileID: 1547651919}
   - component: {fileID: 1547651921}
+  - component: {fileID: 1547651923}
+  - component: {fileID: 1547651922}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -284,7 +286,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547651918}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b17349cf99ecdd748994a2cfb24becad, type: 3}
   m_Name: 
@@ -316,9 +318,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 1547651918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d184f1a7550824184e316e1826e212, type: 3}
+  m_Script: {fileID: 11500000, guid: a7a4f200598e02746b0420928724cda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileMap: {fileID: 904233141}
+  visitedTile: {fileID: 11400000, guid: db5b677849007d8419c0cb5d889ebefc, type: 2}
+  pathTile: {fileID: 11400000, guid: 6c83d733b60e3dc4382fe22892b52362, type: 2}
+  delay: 0.4
+--- !u!114 &1547651922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547651918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19d943e42fc3b445a5c9ccd15114f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileMap: {fileID: 1844934145}
+  visitedTile: {fileID: 11400000, guid: db5b677849007d8419c0cb5d889ebefc, type: 2}
+  pathTile: {fileID: 11400000, guid: 34a49448140dda64f9349887cab70689, type: 2}
+  delay: 0.01
+--- !u!114 &1547651923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547651918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe44e4491b0eb9f4c959ec0e6eb7c395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  main: {fileID: 519420031}
+  tilemap: {fileID: 1844934145}
+  offSet: {x: 0, y: 0.3, z: 0}
+  originTile: {fileID: 11400000, guid: db5b677849007d8419c0cb5d889ebefc, type: 2}
+  destinationTile: {fileID: 11400000, guid: 34a49448140dda64f9349887cab70689, type: 2}
+  floodFill: {fileID: 1547651922}
 --- !u!1 &1791810492
 GameObject:
   m_ObjectHideFlags: 0

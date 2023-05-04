@@ -7,7 +7,7 @@ public class TileSelector : MonoBehaviour
 {
     public Camera main;
     public Tilemap tilemap;
-    public Vector3 offSet = new Vector3 (0, 0.3f, 0);
+    public Vector3 offSet = new Vector3(0, 0.3f, 0);
 
     public TileBase originTile;
     public TileBase destinationTile;
@@ -16,7 +16,7 @@ public class TileSelector : MonoBehaviour
     private Dictionary<Tilemap, Vector3Int> _origin = new Dictionary<Tilemap, Vector3Int>();
     private Dictionary<Tilemap, Vector3Int> _goal = new Dictionary<Tilemap, Vector3Int>();
 
-    public DijkstraAlgorithm floodFill;
+    public Heuristic floodFill;
     private void Start()
     {
         _previousPosition[tilemap] = new Vector3Int(-1, -1, 0);
@@ -26,15 +26,15 @@ public class TileSelector : MonoBehaviour
     private void Update()
     {
         SelectTile();
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             DetectTileClick(true);
         }
-        else if(Input.GetMouseButton(1))
+        else if (Input.GetMouseButton(1))
         {
             DetectTileClick(false);
         }
-        if(Input.GetKeyDown(KeyCode.Space)) 
+        if (Input.GetKeyDown(KeyCode.A))
         {
             StartFloodFill();
         }
@@ -48,7 +48,7 @@ public class TileSelector : MonoBehaviour
         TileBase newTile = isOrigin ? originTile : destinationTile;
         Dictionary<Tilemap, Vector3Int> selectedDictionary = isOrigin ? _origin : _goal;
 
-        if(tilemap.HasTile(tilePosition))
+        if (tilemap.HasTile(tilePosition))
         {
             var oldTile = tilemap.GetTile(tilePosition);
             tilemap.SetTile(tilePosition, newTile);
@@ -68,7 +68,7 @@ public class TileSelector : MonoBehaviour
 
         if (tilemap.HasTile(tilePosition))
         {
-            tilemap.SetTransformMatrix(tilePosition, Matrix4x4.TRS(offSet, Quaternion.Euler(0,0,0), Vector3.one));
+            tilemap.SetTransformMatrix(tilePosition, Matrix4x4.TRS(offSet, Quaternion.Euler(0, 0, 0), Vector3.one));
             tilemap.SetTransformMatrix(_previousPosition[tilemap], Matrix4x4.identity);
             _previousPosition[tilemap] = tilePosition;
         }
