@@ -1,45 +1,69 @@
+using ESarkis;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
-public class FloofFill : MonoBehaviour
+public class Dijkstra : MonoBehaviour
 {
-    private Queue<Vector3> _frontier = new Queue<Vector3>();
+
     private Dictionary<Vector3, Vector3> _came = new Dictionary<Vector3, Vector3>();
+    private PriorityQueue<Vector3> _frontier = new PriorityQueue<Vector3>();
+    private Dictionary<Vector3, double> _costSoFar = new Dictionary<Vector3, double>();
+
     public Vector3 Origin { get; set; }
     public Vector3 Goal { get; set; }
     public Tilemap tileMap;
     public TileBase visitedTile;
     public TileBase pathTile;
-    public float delay = 0.2f;
+    public float delay = 0.01f;
     private bool isEarlyExit = false;
-    public bool earlyExit = false;
+
     public IEnumerator FloodFill2D()
     {
-        _frontier.Enqueue(Origin);
+        _frontier.Enqueue(Origin,0);
         _came[Origin] = Vector3.zero;
+        _costSoFar[Origin] = 0;
 
         while (_frontier.Count > 0 & !isEarlyExit)
         {
             Vector3 current = _frontier.Dequeue();
+            
             foreach (Vector3 next in GetNeighbours(current))
             {
-                if (next == Goal)
-                {
-                    if(earlyExit)   
-                    isEarlyExit = true;
-                }
-                if (!_came.ContainsKey(next))
+                if (next == Goal) { isEarlyExit = true;}
+                var newCost = _costSoFar[current] + GetCost(next);
+                if (!_costSoFar.ContainsKey(next) || newCost < _costSoFar[next])
                 {
                     yield return new WaitForSeconds(delay);
-                    _frontier.Enqueue(next);
+                    _costSoFar[next] = newCost;
+                    _frontier.Enqueue(next, newCost);
                     _came[next] = current;
                 }
             }
         }
         DrawPath(Goal);
-        //yield return _frontier;
+        
+    }
+
+   
+    private double GetCost(Vector3 next)
+    {
+        var nextTile = tileMap.GetTile(new Vector3Int((int)next.x, (int)next.y, (int)next.z));
+        double cost = nextTile.name switch
+        {
+            "isometric_angled_pixel_0040" => 1,
+            "isometric_angled_pixel_0019" => 20,
+            "isometric_angled_pixel_0014" => 30,
+            "isometric_angled_pixel_0037" => 60,
+            _ => 1,
+        };
+
+        
+       return cost;
+
     }
     public void DrawPath(Vector3 goal)
     {
@@ -68,11 +92,8 @@ public class FloofFill : MonoBehaviour
         if (!tileMap.HasTile(coordInt)) return;
         if (!_frontier.Contains(coordInt))
         {
-            //TileFlags flags = tileMap.GetTileFlags(coordInt);
             neighbours.Add(neighbour);
-            tileMap.SetTile(coordInt, visitedTile);
-            //tileMap.SetTileFlags(coordInt, flags);
-
+            //tileMap.SetTile(coordInt, visitedTile);
         }
     }
 }

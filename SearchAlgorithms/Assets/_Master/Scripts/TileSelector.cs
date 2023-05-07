@@ -7,7 +7,7 @@ public class TileSelector : MonoBehaviour
 {
     public Camera main;
     public Tilemap tilemap;
-    public Vector3 offSet = new Vector3(0, 0.3f, 0);
+    public Vector3 offSet = new Vector3(0, 0.02f, 0);
 
     public TileBase originTile;
     public TileBase destinationTile;
@@ -16,12 +16,21 @@ public class TileSelector : MonoBehaviour
     private Dictionary<Tilemap, Vector3Int> _origin = new Dictionary<Tilemap, Vector3Int>();
     private Dictionary<Tilemap, Vector3Int> _goal = new Dictionary<Tilemap, Vector3Int>();
 
-    public Heuristic floodFill;
+    public Heuristic heuristic;
+    public FloofFill floodFill;
+    public Dijkstra dijkstra;
+    public AStar aStar;
+
+    [SerializeField] private bool _floodfill;
+    [SerializeField] private bool _heuristic;
+    [SerializeField] private bool _dijkstra;
+    [SerializeField] private bool _aStar;
+
     private void Start()
     {
         _previousPosition[tilemap] = new Vector3Int(-1, -1, 0);
-        //_origin[tilemap] = new Vector3Int(0, 0, 0);
     }
+
 
     private void Update()
     {
@@ -34,11 +43,16 @@ public class TileSelector : MonoBehaviour
         {
             DetectTileClick(false);
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartFloodFill();
+            if(_floodfill)StartFloodFill();
+            if(_dijkstra)StartDijkstra();
+            if(_heuristic)StartHeuristic();
+            if(_aStar)StartAStar();
         }
     }
+
+
     private void DetectTileClick(bool isOrigin)
     {
         Vector3 mousePosition = main.ScreenToWorldPoint(Input.mousePosition);
@@ -56,23 +70,31 @@ public class TileSelector : MonoBehaviour
             {
                 tilemap.SetTile(selectedDictionary[tilemap], oldTile);
             }
-            //tilemap.SetTile(_origin[tilemap], oldTile);
             selectedDictionary[tilemap] = tilePosition;
         }
     }
+
+
     private void SelectTile()
     {
         Vector3 mousePosition = main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int tilePosition = tilemap.WorldToCell(mousePosition);
         tilePosition.z = 0;
 
-        if (tilemap.HasTile(tilePosition))
+        if (tilePosition != _previousPosition[tilemap])
         {
-            tilemap.SetTransformMatrix(tilePosition, Matrix4x4.TRS(offSet, Quaternion.Euler(0, 0, 0), Vector3.one));
-            tilemap.SetTransformMatrix(_previousPosition[tilemap], Matrix4x4.identity);
+            if (tilemap.HasTile(tilePosition))
+            {
+                tilemap.SetTransformMatrix(tilePosition, Matrix4x4.TRS(offSet, Quaternion.Euler(0, 0, 0), Vector3.one));
+            }
+            if (tilemap.HasTile(_previousPosition[tilemap]))
+            {
+                tilemap.SetTransformMatrix(_previousPosition[tilemap], Matrix4x4.identity);
+            }
             _previousPosition[tilemap] = tilePosition;
         }
     }
+
 
     private void StartFloodFill()
     {
@@ -82,5 +104,38 @@ public class TileSelector : MonoBehaviour
         floodFill.visitedTile = originTile;
         floodFill.pathTile = destinationTile;
         StartCoroutine(floodFill.FloodFill2D());
+    } 
+    
+
+    private void StartDijkstra()
+    {
+        dijkstra.Origin = _origin[tilemap];
+        dijkstra.Goal = _goal[tilemap];
+        dijkstra.tileMap = tilemap;
+        dijkstra.visitedTile = originTile;
+        dijkstra.pathTile = destinationTile;
+        StartCoroutine(dijkstra.FloodFill2D());
+    } 
+    
+
+    private void StartHeuristic()
+    {
+        heuristic.Origin = _origin[tilemap];
+        heuristic.Goal = _goal[tilemap];
+        heuristic.tileMap = tilemap;
+        heuristic.visitedTile = originTile;
+        heuristic.pathTile = destinationTile;
+        StartCoroutine(heuristic.FloodFill2D());
+    }
+
+
+    private void StartAStar()
+    {
+        aStar.Origin = _origin[tilemap];
+        aStar.Goal = _goal[tilemap];
+        aStar.tileMap = tilemap;
+        aStar.visitedTile = originTile;
+        aStar.pathTile = destinationTile;
+        StartCoroutine(aStar.FloodFill2D());
     }
 }
