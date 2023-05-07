@@ -54,10 +54,10 @@ public class Dijkstra : MonoBehaviour
         var nextTile = tileMap.GetTile(new Vector3Int((int)next.x, (int)next.y, (int)next.z));
         double cost = nextTile.name switch
         {
-            "isometric_angled_pixel_0040" => 1,
-            "isometric_angled_pixel_0019" => 20,
-            "isometric_angled_pixel_0014" => 30,
-            "isometric_angled_pixel_0037" => 60,
+            "isometric_angled_pixel_0040" => 10,
+            "isometric_angled_pixel_0019" => 200,
+            "isometric_angled_pixel_0014" => 300,
+            "isometric_angled_pixel_0037" => 600,
             _ => 1,
         };
 

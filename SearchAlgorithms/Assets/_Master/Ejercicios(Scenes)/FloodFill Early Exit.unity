@@ -180,7 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   main: {fileID: 519420031}
   tilemap: {fileID: 724324453}
-  offSet: {x: 0, y: 0, z: 0}
+  offSet: {x: 0, y: 0.02, z: 0}
   originTile: {fileID: 11400000, guid: 6c83d733b60e3dc4382fe22892b52362, type: 2}
   destinationTile: {fileID: 11400000, guid: 4d86b5e764ef96348b00246e7e5bb6b6, type: 2}
   heuristic: {fileID: 0}
@@ -242,7 +242,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.19783045, b: 0.9811321, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

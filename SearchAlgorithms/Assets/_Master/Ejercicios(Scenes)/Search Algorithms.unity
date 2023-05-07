@@ -2295,7 +2295,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.0738252, g: 0.69169545, b: 0.745283, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2374,7 +2374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   main: {fileID: 419494319}
   tilemap: {fileID: 416592054}
-  offSet: {x: 0, y: 0.3, z: 0}
+  offSet: {x: 0, y: 0.02, z: 0}
   originTile: {fileID: 11400000, guid: e55575046cf9fb84ebcc72c8a27237b6, type: 2}
   destinationTile: {fileID: 11400000, guid: db5b677849007d8419c0cb5d889ebefc, type: 2}
   heuristic: {fileID: 0}
@@ -32212,7 +32212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   main: {fileID: 419494319}
   tilemap: {fileID: 1547815107}
-  offSet: {x: 0, y: 0.3, z: 0}
+  offSet: {x: 0, y: 0.02, z: 0}
   originTile: {fileID: 11400000, guid: e55575046cf9fb84ebcc72c8a27237b6, type: 2}
   destinationTile: {fileID: 11400000, guid: db5b677849007d8419c0cb5d889ebefc, type: 2}
   heuristic: {fileID: 1547815108}
@@ -32274,7 +32274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   main: {fileID: 419494319}
   tilemap: {fileID: 1844934145}
-  offSet: {x: 0, y: 0, z: 0}
+  offSet: {x: 0, y: 0.02, z: 0}
   originTile: {fileID: 11400000, guid: 7d59410ebddc32a46ade0750810d6f1a, type: 2}
   destinationTile: {fileID: 11400000, guid: 34a49448140dda64f9349887cab70689, type: 2}
   heuristic: {fileID: 0}

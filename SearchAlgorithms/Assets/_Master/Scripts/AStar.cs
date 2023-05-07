@@ -52,10 +52,10 @@ public class AStar : MonoBehaviour
         var nextTile = tileMap.GetTile(new Vector3Int((int)next.x, (int)next.y, (int)next.z));
         double cost = nextTile.name switch
         {
-            "isometric_angled_pixel_0020" => 1,
-            "isometric_angled_pixel_0019" => 20,
-            "isometric_angled_pixel_0014" => 30,
-            "isometric_angled_pixel_0017" => 40,
+            "isometric_angled_pixel_0040" => 10,
+            "isometric_angled_pixel_0038" => 200,
+            "isometric_angled_pixel_0036" => 300,
+            "isometric_angled_pixel_0037" => 500,
             _ => 1,
         };
 
